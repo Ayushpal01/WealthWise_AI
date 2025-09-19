@@ -22,7 +22,7 @@ def local_css(file_name):
 local_css("style.css")
 
 # --- API KEY and MODEL CONFIGURATION ---
-api_key = st.sidebar.text_input("Enter your Google AI API Key:", type="password", key="api_key_input")
+api_key = st.secrets["GOOGLE_API_KEY"]
 
 def get_gemini_response(prompt):
     if not api_key:
@@ -225,4 +225,5 @@ elif st.session_state.selected_page == "👥 Team Details":
 
 # --- FOOTER ---
 footer_text = "Copyright © 2025 — Group 50, IIM Mumbai. All Rights Reserved."
+
 st.markdown(f'<div class="footer">{footer_text}</div>', unsafe_allow_html=True)

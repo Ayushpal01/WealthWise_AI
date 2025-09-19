@@ -27,7 +27,6 @@ Here's a look at the Financial Goal Planner in action:
 
 ![WealthWise AI Screenshot]<img width="1893" height="949" alt="Image" src="https://github.com/user-attachments/assets/fbd60257-7428-4690-a80f-c8801298d51e" />
 
-*(Note: You should upload your own screenshot, for example to a site like [Imgur](https://imgur.com/upload), and replace the URL above.)*
 
 ## 🛠️ Tech Stack
 

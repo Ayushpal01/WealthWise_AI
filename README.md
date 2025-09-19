@@ -1,6 +1,6 @@
 # WealthWise AI: A Personal Financial Goal & Investment Copilot 💸
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://your-app-url.streamlit.app/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)]([https://wealthwise-ai.streamlit.app/(https://wealthwise-ai.streamlit.app/))
 
 **WealthWise AI** is a powerful, multi-page dashboard built with Streamlit and powered by Google's Gemini AI. It helps users plan, track, and achieve their financial goals by combining traditional financial forecasting with personalized, AI-generated strategies.
 
@@ -17,7 +17,7 @@ This project was developed for the "Gen AI for Business" course at IIM Mumbai.
 
 You can access the live, deployed version of the application here:
 
-**[https://your-app-url.streamlit.app/](https://your-app-url.streamlit.app/)**
+**[https://wealthwise-ai.streamlit.app/](https://wealthwise-ai.streamlit.app/)**
 
 *(Note: Replace the URL above with your actual Streamlit Community Cloud app URL after deployment.)*
 

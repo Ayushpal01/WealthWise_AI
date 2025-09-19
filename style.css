@@ -1,0 +1,41 @@
+/* --- HIDE DEFAULT STREAMLIT UI --- */
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+div[data-testid="stSidebarNav"] {
+    display: none;
+}
+
+/* --- GLOBAL FONT SIZE --- */
+html, body, [class*="st-"], [class*="css-"] {
+   font-size: 1.1rem;
+}
+h1 { font-size: 2.5rem !important; }
+h2 { font-size: 2.0rem !important; }
+h3 { font-size: 1.75rem !important; }
+
+/* --- FIXED HEADER --- */
+.fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Add padding to the top of the main content area to avoid overlap with the fixed header */
+.main .block-container {
+    padding-top: 7rem;
+}
+
+/* --- FIXED FOOTER --- */
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #0e1117;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    z-index: 1000;
+}

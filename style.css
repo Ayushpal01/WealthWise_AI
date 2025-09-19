@@ -4,7 +4,10 @@ footer {visibility: hidden;}
 div[data-testid="stSidebarNav"] {
     display: none;
 }
-
+body {
+    background-color: #FFFFFF !important; /* Forces a white background */
+    color: #0e1117 !important; /* Forces dark text */
+}
 /* --- GLOBAL FONT SIZE --- */
 html, body, [class*="st-"], [class*="css-"] {
    font-size: 1.1rem;
@@ -38,4 +41,5 @@ h3 { font-size: 1.75rem !important; }
     text-align: center;
     padding: 10px;
     z-index: 1000;
+
 }

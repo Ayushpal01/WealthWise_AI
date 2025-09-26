@@ -79,6 +79,7 @@ if st.session_state.selected_page != selected:
 # --- PAGE DEFINITIONS (Functions) ---
 
 def page_welcome():
+    # (This function remains the same)
     st.title("Welcome to WealthWise AI 💸")
     st.header("Your Personal Financial Goal & Investment Copilot")
     st.write("---")
@@ -88,9 +89,9 @@ def page_welcome():
     """)
 
 def page_goal_planner():
+    # (This function is the same, but now calls get_ai_response)
     st.title("💰 Financial Goal Planner")
     st.write("Define your financial goals and see a projection of your investments.")
-    
     col1, col2 = st.columns(2)
     with col1:
         st.subheader("Your Financial Goal")
@@ -112,7 +113,6 @@ def page_goal_planner():
             fv_initial = initial_investment * ((1 + annual_rate) ** year)
             fv_monthly = monthly_contribution * 12 * ((((1 + annual_rate) ** year) - 1) / annual_rate) if annual_rate > 0 else monthly_contribution * 12 * year
             future_values.append(fv_initial + fv_monthly)
-        
         st.session_state.financial_plan = {
             'goal_name': goal_name, 'target_amount': target_amount, 'timeline': timeline,
             'initial_investment': initial_investment, 'monthly_contribution': monthly_contribution,
@@ -129,14 +129,13 @@ def page_goal_planner():
         fig.add_hline(y=plan['target_amount'], line_dash="dash", annotation_text="Target Amount")
         fig.update_layout(title=f"Projection for '{plan['goal_name']}'", xaxis_title="Years", yaxis_title="Value (₹)")
         st.plotly_chart(fig, use_container_width=True)
-
         st.subheader("🤖 AI-Powered Strategy & Insights")
         if st.button("Generate AI Strategy"):
             final_value, target_amount = plan['final_value'], plan['target_amount']
             shortfall_surplus = final_value - target_amount
             prompt = f"Analyze this financial plan: Goal='{plan['goal_name']}', Target=₹{target_amount:,}, Timeline={plan['timeline']} years. Projected value is ₹{final_value:,.2f}, resulting in a {'shortfall' if shortfall_surplus < 0 else 'surplus'} of ₹{abs(shortfall_surplus):,.2f}. Provide: 1. AI Insights summary. 2. Budgeting Suggestions. 3. Investment Strategy. 4. Risk Analysis."
             with st.spinner("Generating strategy..."):
-                ai_insights = get_gemini_response(prompt)
+                ai_insights = get_ai_response(prompt)
                 if ai_insights:
                     st.session_state.financial_plan['ai_insights'] = ai_insights
         
@@ -144,18 +143,16 @@ def page_goal_planner():
             st.markdown(st.session_state.financial_plan['ai_insights'])
 
 def page_ai_advisor():
+    # (This function is the same, but now calls get_ai_response)
     st.title("🤖 AI Financial Advisor")
     st.write("Ask questions about your financial plan or general finance topics.")
-
     st.sidebar.markdown("---")
     if st.sidebar.button("Clear Entire Chat History", key="clear_chat"):
         st.session_state["messages"] = [{"role": "assistant", "content": "Chat history cleared. How can I help you?"}]
         st.rerun()
-
     if not st.session_state.get('financial_plan'):
         st.info("Please create a financial plan in the '💰 Goal Planner' page first.")
         st.stop()
-    
     with st.expander("Show My Current Financial Plan Summary", expanded=True):
         plan = st.session_state.financial_plan
         st.markdown(f"""
@@ -165,7 +162,6 @@ def page_ai_advisor():
         - **Monthly Contribution:** ₹{plan.get('monthly_contribution', 0):,}
         - **Projected Final Value:** ₹{plan.get('final_value', 0):,.2f}
         """)
-
     for idx, msg in enumerate(st.session_state.messages):
         if msg["role"] == "user":
             col1, col2 = st.columns([10, 1])
@@ -179,33 +175,29 @@ def page_ai_advisor():
                         st.rerun()
         else:
             st.chat_message("assistant").write(msg["content"])
-
     if prompt := st.chat_input():
         if not api_key:
             st.info("Please add your API Key to chat.")
             st.stop()
         st.session_state.messages.append({"role": "user", "content": prompt})
-        
         plan = st.session_state.financial_plan
         plan_context = f"Context: User's goal is '{plan.get('goal_name', 'N/A')}' with a target of ₹{plan.get('target_amount', 0):,} over {plan.get('timeline', 0)} years. Their projected final value is ₹{plan.get('final_value', 0):,.2f}."
         full_prompt = f"You are a helpful AI Financial Advisor. {plan_context}. Answer the user's question: '{prompt}'"
-        
         with st.spinner("Thinking..."):
-            response = get_gemini_response(full_prompt)
+            response = get_ai_response(full_prompt)
             st.session_state.messages.append({"role": "assistant", "content": response})
         st.rerun()
 
 def page_team_details():
+    # (This function remains the same)
     st.title("Our Team")
     st.write("---")
-    
     team_members = {
         "Aviral Srivastava": "202408001", "Ayush Pal": "202408002", "Sakshi Naresh Joshi": "202403022",
         "Saraiya Meet Hareshbhai": "202403023", "Saumyadip Das": "202403024", "Saurabh Madhukar Shelar": "202403025",
         "Shubham Nirmal Daga": "202403026", "Sudharshana Kumar D": "202403027", "Viraj Dnyaneshwar Takale": "202403029",
         "Vishal Soni": "202403030"
     }
-
     member_list = list(team_members.items())
     for i in range(0, len(member_list), 2):
         col1, col2 = st.columns(2)
@@ -228,8 +220,9 @@ elif st.session_state.selected_page == "👥 Team Details":
 
 # --- FOOTER ---
 footer_text = "Copyright © 2025 — Group 50, IIM Mumbai. All Rights Reserved."
-
 st.markdown(f'<div class="footer">{footer_text}</div>', unsafe_allow_html=True)
+
+
 
 
 

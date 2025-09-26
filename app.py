@@ -1,8 +1,9 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 import plotly.graph_objects as go
-import google.generativeai as genai
 import numpy as np
+import openai # Import OpenAI library
+
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
@@ -21,20 +22,22 @@ def local_css(file_name):
 
 local_css("style.css")
 
-# --- API KEY and MODEL CONFIGURATION ---
-api_key = st.secrets["GOOGLE_API_KEY"]
+# --- **UPDATED** API KEY and MODEL CONFIGURATION for OpenAI ---
+api_key = st.secrets.get("OPENAI_API_KEY")
+client = openai.OpenAI(api_key=api_key)
 
-def get_gemini_response(prompt):
+def get_ai_response(prompt):
     if not api_key:
-        st.error("Please enter your API Key to generate insights.")
+        st.error("Please ensure your OpenAI API Key is set in the secrets.")
         return None
     try:
-        genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-1.0-pro')
-        response = model.generate_content(prompt)
-        return response.text
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",  # Using a fast and powerful model
+            messages=[{"role": "user", "content": prompt}]
+        )
+        return response.choices[0].message.content
     except Exception as e:
-        st.error(f"An error occurred: {e}")
+        st.error(f"An error occurred with the AI model: {e}")
         return None
 
 # --- SHARED SESSION STATE INITIALIZATION ---
@@ -227,6 +230,7 @@ elif st.session_state.selected_page == "👥 Team Details":
 footer_text = "Copyright © 2025 — Group 50, IIM Mumbai. All Rights Reserved."
 
 st.markdown(f'<div class="footer">{footer_text}</div>', unsafe_allow_html=True)
+
 
 
 

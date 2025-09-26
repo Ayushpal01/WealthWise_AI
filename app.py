@@ -30,7 +30,7 @@ def get_gemini_response(prompt):
         return None
     try:
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-pro')
+        model = genai.GenerativeModel('gemini-1.5-flash')
         response = model.generate_content(prompt)
         return response.text
     except Exception as e:
@@ -227,5 +227,6 @@ elif st.session_state.selected_page == "👥 Team Details":
 footer_text = "Copyright © 2025 — Group 50, IIM Mumbai. All Rights Reserved."
 
 st.markdown(f'<div class="footer">{footer_text}</div>', unsafe_allow_html=True)
+
 
 
